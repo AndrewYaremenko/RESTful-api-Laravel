@@ -4,28 +4,74 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CountryLang;
+use Illuminate\Support\Facades\Validator;
 
 class CountryLangController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return response()->json(CountryLang::get(), 200);
     }
 
-    public function show(CountryLang $country) {
+    public function show($id)
+    {
+        $country = CountryLang::find($id);
+
+        if (!$country) {
+            return response()->json(['error' => true, 'message' => 'Not found'], 404);
+        }
+
         return response()->json($country, 200);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+        $rules = [
+            'alias' => ['required', 'string', 'min:2', 'max:2'],
+            'name' => ['required', 'string', 'min:3', 'max:32']
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+        
         $country = CountryLang::create($request->all());
         return response()->json($country, 201);
     }
 
-    public function update(Request $request, CountryLang $country) {
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            'alias' => ['string', 'min:2', 'max:2'],
+            'name' => ['string', 'min:3', 'max:32']
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $country = CountryLang::find($id);
+
+        if (!$country) {
+            return response()->json(['error' => true, 'message' => 'Not found'], 404);
+        }
+
         $country->update($request->all());
         return response()->json($country, 200);
     }
 
-    public function destroy(CountryLang $country) {
+    public function destroy($id)
+    {
+        $country = CountryLang::find($id);
+
+        if (!$country) {
+            return response()->json(['error' => true, 'message' => 'Not found'], 404);
+        }
+
         $country->delete();
         return response()->json('', 204);
     }

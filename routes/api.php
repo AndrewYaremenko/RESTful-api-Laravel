@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/countries', [CountryLangController::class, 'index']);
-Route::get('/countries/{country}', [CountryLangController::class, 'show']);
+Route::get('/countries/{id}', [CountryLangController::class, 'show']);
 Route::post('/countries', [CountryLangController::class, 'store']);
-Route::patch('/countries/{country}', [CountryLangController::class, 'update']);
-Route::delete('/countries/{country}', [CountryLangController::class, 'destroy']);
+Route::patch('/countries/{id}', [CountryLangController::class, 'update']);
+Route::delete('/countries/{id}', [CountryLangController::class, 'destroy']);
