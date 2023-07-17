@@ -19,4 +19,14 @@ class CountryLangController extends Controller
         $country = CountryLang::create($request->all());
         return response()->json($country, 201);
     }
+
+    public function update(Request $request, CountryLang $country) {
+        $country->update($request->all());
+        return response()->json($country, 200);
+    }
+
+    public function destroy(CountryLang $country) {
+        $country->delete();
+        return response()->json('', 204);
+    }
 }
