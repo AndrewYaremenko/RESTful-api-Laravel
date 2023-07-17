@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/countries', [CountryLangController::class, 'index']);
+Route::get('/countries/{country}', [CountryLangController::class, 'show']);
+Route::post('/countries', [CountryLangController::class, 'store']);
