@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/countries', [CountryLangController::class, 'index']);
-Route::get('/countries/{id}', [CountryLangController::class, 'show']);
-Route::post('/countries', [CountryLangController::class, 'store']);
-Route::patch('/countries/{id}', [CountryLangController::class, 'update']);
-Route::delete('/countries/{id}', [CountryLangController::class, 'destroy']);
+Route::get('/countries', [CountryLangController::class, 'getCountries']);
+Route::get('/countries/{id}', [CountryLangController::class, 'getCountry']);
+Route::post('/countries', [CountryLangController::class, 'saveCountry']);
+Route::patch('/countries/{id}', [CountryLangController::class, 'updateCountry']);
+Route::delete('/countries/{id}', [CountryLangController::class, 'deleteCountry']);

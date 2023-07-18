@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CountryLangController extends Controller
 {
-    public function index()
+    public function getCountries()
     {
         return response()->json(CountryLang::get(), 200);
     }
 
-    public function show($id)
+    public function getCountry($id)
     {
         $country = CountryLang::find($id);
 
@@ -24,7 +24,7 @@ class CountryLangController extends Controller
         return response()->json($country, 200);
     }
 
-    public function store(Request $request)
+    public function saveCountry(Request $request)
     {
         $rules = [
             'alias' => ['required', 'string', 'min:2', 'max:2'],
@@ -41,7 +41,7 @@ class CountryLangController extends Controller
         return response()->json($country, 201);
     }
 
-    public function update(Request $request, $id)
+    public function updateCountry(Request $request, $id)
     {
         $rules = [
             'alias' => ['string', 'min:2', 'max:2'],
@@ -64,7 +64,7 @@ class CountryLangController extends Controller
         return response()->json($country, 200);
     }
 
-    public function destroy($id)
+    public function deleteCountry($id)
     {
         $country = CountryLang::find($id);
 
